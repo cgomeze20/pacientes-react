@@ -1,0 +1,23 @@
+.Container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.PacientesList{
+    padding: 1rem;
+    max-height: 90vh;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #ddd;
+    border-radius: 10px;
+}
+
+
+

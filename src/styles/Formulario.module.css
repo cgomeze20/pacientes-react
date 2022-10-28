@@ -1,0 +1,12 @@
+.Formulario{
+    border: 1px solid #eee;
+}
+.Formulario textarea{
+    border: 1px solid #eee;
+    display: block;
+    width: 90%;
+    margin: .5rem auto;
+    padding: .5rem;
+    resize: none;
+    outline: none;
+}
