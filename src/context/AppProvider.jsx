@@ -21,15 +21,14 @@ export const AppProvider = ({ children }) => {
 
   const VITE_WEB_API_KEY = 'AIzaSyCWtQtSdciphWCsXGre_a4IPpIdcIbKEXA'
   const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
+  const LS = JSON.parse(localStorage.getItem('token'))
+  const keys = ['nombre', 'apellidos', 'notas', 'fechaNacimiento']
 
   const [paciente, setPaciente] = useState(initialState)
   const [usuario, setUsuario] = useState(initialUsuario)
   const [data, setData] = useState({})
   const [login, setLogin] = useState(null)
   const [search, setSearch] = useState('')
-
-  const LS = JSON.parse(localStorage.getItem('token'))
-  const keys = ['nombre', 'apellidos', 'notas', 'fechaNacimiento']
 
   useEffect(() => {
     if (localStorage.token) {
@@ -95,7 +94,6 @@ export const AppProvider = ({ children }) => {
 
   const getData = async () => {
     try {
-      const LS = JSON.parse(localStorage.getItem('token'))
       const res = await fetch(`https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api/${LS.localId}.json?auth=${LS.idToken}`)
       const datos = await res.json()
       setData(datos)
