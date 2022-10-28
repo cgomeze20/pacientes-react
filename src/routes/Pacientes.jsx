@@ -5,20 +5,19 @@ import { AppContext } from '../context/AppProvider'
 import styles from '../styles/Pacientes.module.css'
 
 export const Pacientes = () => {
-
   const { Container, PacientesList } = styles
   const { filtered } = useContext(AppContext)
 
   return (
     <div className={Container}>
-        <Formulario/>
-        <div className={ PacientesList }>
-          {
+      <Formulario />
+      <div className={PacientesList}>
+        {
             filtered && filtered.map(paciente => (
-              <PacienteCard key={paciente.id} paciente={ paciente } />
+              <PacienteCard key={paciente.id} paciente={paciente} />
             ))
           }
-        </div>
+      </div>
     </div>
   )
 }

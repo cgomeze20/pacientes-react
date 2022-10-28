@@ -1,11 +1,11 @@
-import { useContext, useEffect } from 'react'
+/* eslint-disable no-undef */
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppProvider'
 
 import styles from '../styles/Login.module.css'
 
 export const Login = () => {
-
   const { Login } = styles
 
   const { usuario, setUsuario, VITE_WEB_API_KEY, setLogin, initialUsuario, handleMessages } = useContext(AppContext)
@@ -17,7 +17,6 @@ export const Login = () => {
   }
 
   const loginUser = async (e) => {
-
     e.preventDefault()
     try {
       const respuesta = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${VITE_WEB_API_KEY}`, {
@@ -27,18 +26,16 @@ export const Login = () => {
       })
       const data = await respuesta.json()
 
-      if(data.registered){
-        localStorage.setItem('token',JSON.stringify(data))
-        navigate('/pacientes', { replace:true })
+      if (data.registered) {
+        localStorage.setItem('token', JSON.stringify(data))
+        navigate('/pacientes', { replace: true })
         setLogin(data)
         setUsuario(initialUsuario)
-      }
-      else{
-        if(data.error.code === 400){
-          handleMessages( data.error.message )
+      } else {
+        if (data.error.code === 400) {
+          handleMessages(data.error.message)
         }
       }
-
     } catch (error) {
       console.log(error)
     }
@@ -53,4 +50,3 @@ export const Login = () => {
     </form>
   )
 }
-

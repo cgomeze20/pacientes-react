@@ -1,55 +1,55 @@
-import { createContext, useState, useEffect, useMemo } from "react";
-import Swal from "sweetalert2";
+/* eslint-disable no-undef */
+/* eslint-disable no-use-before-define */
+import { createContext, useState, useEffect, useMemo } from 'react'
+import Swal from 'sweetalert2'
 
 export const AppContext = createContext()
 export const AppProvider = ({ children }) => {
+  const initialState = {
+    nombre: '',
+    apellidos: '',
+    fechaNacimiento: '',
+    notas: '',
+    id: ''
+  }
 
-const initialState = {
-  nombre: '',
-  apellidos: '',
-  fechaNacimiento: '',
-  notas: '',
-  id: ''
-}
+  const initialUsuario = {
+    email: '',
+    password: '',
+    displayName: ''
+  }
 
-const initialUsuario = {
-  email: '',
-  password: '',
-  displayName: ''
-}
-
-const VITE_WEB_API_KEY = 'AIzaSyCWtQtSdciphWCsXGre_a4IPpIdcIbKEXA'
-const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
-
+  const VITE_WEB_API_KEY = 'AIzaSyCWtQtSdciphWCsXGre_a4IPpIdcIbKEXA'
+  const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
 
   const [paciente, setPaciente] = useState(initialState)
-  const [usuario, setUsuario] = useState(initialUsuario);
-  const [ data, setData ] = useState({})
+  const [usuario, setUsuario] = useState(initialUsuario)
+  const [data, setData] = useState({})
   const [login, setLogin] = useState(null)
   const [search, setSearch] = useState('')
 
   const LS = JSON.parse(localStorage.getItem('token'))
-  const keys = [ 'nombre','apellidos','notas','fechaNacimiento' ]
-
-    useEffect(() => {
-    if(localStorage.token){
-      console.log('logged');
-    }
-  }, []);
+  const keys = ['nombre', 'apellidos', 'notas', 'fechaNacimiento']
 
   useEffect(() => {
-    if( localStorage.token ){
+    if (localStorage.token) {
+      console.log('logged')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (localStorage.token) {
       getData()
     }
-  }, [usuario]);
+  }, [usuario])
 
-  const filtered = useMemo(()=>Object.values(data).filter(item =>{
+  const filtered = useMemo(() => Object.values(data).filter(item => {
     return keys.some(key => item[key].toLowerCase().includes(search))
-  }), [search, data]);
+  }), [search, data])
 
   const addPaciente = async (paciente) => {
     const id = Math.random().toString(36).slice(2)
-      await fetch(`${URL_API}/${LS.localId}/${id}.json?auth=${LS.idToken}`, {
+    await fetch(`${URL_API}/${LS.localId}/${id}.json?auth=${LS.idToken}`, {
       method: 'PUT',
       'Content-type': 'appplication/json',
       body: JSON.stringify({ ...paciente, id })
@@ -60,12 +60,12 @@ const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
 
   const eliminarPaciente = async (id) => {
     try {
-       await fetch(`${URL_API}/${LS.localId}/${id}.json?auth=${LS.idToken}`, {
+      await fetch(`${URL_API}/${LS.localId}/${id}.json?auth=${LS.idToken}`, {
         method: 'DELETE'
       })
       getData()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
@@ -75,8 +75,7 @@ const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
 
   const updatePaciente = async (paciente) => {
     try {
-
-        await fetch(`${URL_API}/${LS.localId}/${paciente.id}.json?auth=${LS.idToken}`, {
+      await fetch(`${URL_API}/${LS.localId}/${paciente.id}.json?auth=${LS.idToken}`, {
         method: 'PATCH',
         body: JSON.stringify(paciente)
       })
@@ -88,24 +87,21 @@ const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
 
   const handleMessages = (mensaje) => {
     return Swal.fire({
-      title: "Error",
+      title: 'Error',
       text: mensaje,
-      icon: "error"
+      icon: 'error'
     })
   }
 
-
-
-  const getData = async() => {
+  const getData = async () => {
     try {
       const LS = JSON.parse(localStorage.getItem('token'))
       const res = await fetch(`https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api/${LS.localId}.json?auth=${LS.idToken}`)
       const datos = await res.json()
       setData(datos)
-      console.log(datos);
-
+      console.log(datos)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
@@ -113,15 +109,12 @@ const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
     setSearch(e.target.value)
   }
 
-
   return (
     <AppContext.Provider value={{ login, usuario, setUsuario, setLogin, VITE_WEB_API_KEY, paciente, setPaciente, addPaciente, eliminarPaciente, obtenerDatosToEdit, updatePaciente, initialState, initialUsuario, handleMessages, data, getData, handleSearch, search, filtered }}>
       {children}
     </AppContext.Provider>
   )
-
 }
-
 
 // const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
 // SAVE ${URL_API}/${login.localId}/${id}.json?auth=${login.idToken}
