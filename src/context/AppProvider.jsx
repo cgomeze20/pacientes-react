@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import Swal from "sweetalert2";
 
 export const AppContext = createContext()
+export const AppProvider = ({ children }) => {
 
 const initialState = {
   nombre: '',
@@ -20,7 +21,6 @@ const initialUsuario = {
 const VITE_WEB_API_KEY = 'AIzaSyCWtQtSdciphWCsXGre_a4IPpIdcIbKEXA'
 const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
 
-export const AppProvider = ({ children }) => {
 
   const [paciente, setPaciente] = useState(initialState)
   const [usuario, setUsuario] = useState(initialUsuario);
