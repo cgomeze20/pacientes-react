@@ -46,7 +46,7 @@ export const Login = () => {
       <h1>Login</h1>
       <input type='text' value={usuario.email} onChange={handleChange} name='email' placeholder='email' />
       <input type='password' value={usuario.password} onChange={handleChange} name='password' placeholder='password' />
-      <button type='submit'>Login</button>
+      <input type='submit' value='Login' />
     </form>
   )
 }

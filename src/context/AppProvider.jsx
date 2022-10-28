@@ -99,7 +99,6 @@ export const AppProvider = ({ children }) => {
       const res = await fetch(`https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api/${LS.localId}.json?auth=${LS.idToken}`)
       const datos = await res.json()
       setData(datos)
-      console.log(datos)
     } catch (error) {
       console.log(error)
     }
