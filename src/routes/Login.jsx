@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppProvider'
 
@@ -10,6 +10,12 @@ export const Login = () => {
 
   const { usuario, setUsuario, VITE_WEB_API_KEY, setLogin, initialUsuario, handleMessages } = useContext(AppContext)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/pacientes')
+    }
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target

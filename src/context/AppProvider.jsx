@@ -31,19 +31,19 @@ export const AppProvider = ({ children }) => {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    if (localStorage.token) {
-      console.log('logged')
-    }
-  }, [])
-
-  useEffect(() => {
-    if (localStorage.token) {
+    if (localStorage.getItem('token')) {
       getData()
     }
   }, [usuario])
 
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setLogin(LS)
+    }
+  }, [])
+
   const filtered = useMemo(() => Object.values(data).filter(item => {
-    return keys.some(key => item[key].toLowerCase().includes(search))
+    return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase()))
   }), [search, data])
 
   const addPaciente = async (paciente) => {
