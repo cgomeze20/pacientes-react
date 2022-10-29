@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-use-before-define */
-import { createContext, useState, useEffect, useMemo } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import Swal from 'sweetalert2'
 
 export const AppContext = createContext()
@@ -22,13 +22,11 @@ export const AppProvider = ({ children }) => {
   const VITE_WEB_API_KEY = 'AIzaSyCWtQtSdciphWCsXGre_a4IPpIdcIbKEXA'
   const URL_API = 'https://contactapp-pwa-default-rtdb.firebaseio.com/tareas-api'
   const LS = JSON.parse(localStorage.getItem('token'))
-  const keys = ['nombre', 'apellidos', 'notas', 'fechaNacimiento']
 
   const [paciente, setPaciente] = useState(initialState)
   const [usuario, setUsuario] = useState(initialUsuario)
   const [data, setData] = useState({})
   const [login, setLogin] = useState(null)
-  const [search, setSearch] = useState('')
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -41,10 +39,6 @@ export const AppProvider = ({ children }) => {
       setLogin(LS)
     }
   }, [])
-
-  const filtered = useMemo(() => Object.values(data).filter(item => {
-    return keys.some(key => item[key].toLowerCase().includes(search.toLowerCase()))
-  }), [search, data])
 
   const addPaciente = async (paciente) => {
     const id = Math.random().toString(36).slice(2)
@@ -102,12 +96,8 @@ export const AppProvider = ({ children }) => {
     }
   }
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value)
-  }
-
   return (
-    <AppContext.Provider value={{ login, usuario, setUsuario, setLogin, VITE_WEB_API_KEY, paciente, setPaciente, addPaciente, eliminarPaciente, obtenerDatosToEdit, updatePaciente, initialState, initialUsuario, handleMessages, data, getData, handleSearch, search, filtered }}>
+    <AppContext.Provider value={{ login, usuario, setUsuario, setLogin, VITE_WEB_API_KEY, paciente, setPaciente, addPaciente, eliminarPaciente, obtenerDatosToEdit, updatePaciente, initialState, initialUsuario, handleMessages, data, getData }}>
       {children}
     </AppContext.Provider>
   )

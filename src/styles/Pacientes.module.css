@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    min-height: 90vh;
 }
 
 .PacientesList{

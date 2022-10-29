@@ -1,33 +1,21 @@
-.Navbar{
-    background-color: #212F3C;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    padding-right: .5rem;
+.Navbar {
+  background-color: #212f3c;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
 }
 
-.Navbar a{
-    color: #fff;
-    text-decoration: none;
-    margin: 0 .5rem;
+.Navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5rem;
 }
 
-.btnCloseSesion{
-    border: 1px solid #fff;
-    background-color: transparent;
-    color: #fff;
-    padding: .5rem;
-    margin-left: auto;
-}
-
-.inputSearch{
-    outline: none;
-    padding: .3rem;
-    background-color: transparent;
-    border: 1px solid #eee;
-    color: #ddd;
-}
-
-.inputSearch::placeholder{
-    color: #ddd;
+.btnCloseSesion {
+  border: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  padding: 0.5rem;
+  margin-left: auto;
 }
